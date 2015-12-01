@@ -79,7 +79,7 @@ GCell GCELL, snk;
 			// gives it the ID, path cost, heuristic cost, and manhattan cost
 				priorityQueue.setGCellCost(getGCellId(GCELL1), pathCost+func(EDGEID)+lb(snk,GCELL1) ,pathCost+func(EDGEID), getGCellId(GCELL));  
 			}//checks to see if there is a better cost for that cell, if so it adds it
-			else if( priorityQueue.getGCellData(getGCellId(GCELL)).totalCost > pathCost+func(EDGEID)+lb(snk,GCELL2)
+			else if( priorityQueue.getGCellData(getGCellId(GCELL)).totalCost > pathCost+func(EDGEID)+lb(snk,GCELL2))
 			{
 				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL)); 
 			}
