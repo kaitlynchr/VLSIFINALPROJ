@@ -46,7 +46,7 @@ GCell GCELL, snk;
    //we just used our bestGCell and it wasn't there so we move it to closed
 	priorityQueue.rmBestGCell(); 
 	// get the edge Id to get the next GCELL values to check for
-	 IdType EDGEID = GCELL.incX; 
+	 IdType QUEUEID, EDGEID = GCELL.incX; 
 	//make sure it exisits 
 	if(EDGEID != NULLID )
 	{
@@ -58,8 +58,8 @@ GCell GCELL, snk;
 		//figures out which GCELL to use (the one that is not the same as the current)
 		if(getGCellId(GCELL1) == getGCellId(GCELL))
 		{
-			IdType QUEUEID = priorityQueue.getGCellData(getGCellId(GCELL2)).heapLoc; 
-		/*	//checks to see if the GCELL Has been visited or is in the queue, if not it adds it 
+			 QUEUEID = priorityQueue.getGCellData(getGCellId(GCELL2)).heapLoc; 
+			//checks to see if the GCELL Has been visited or is in the queue, if not it adds it 
 			 if(!priorityQueue.isGCellVsted(getGCellId(GCELL2))&& QUEUEID == NULLID))
 			{
 			// gives it the ID, path cost, heuristic cost, and manhattan cost
@@ -73,164 +73,23 @@ GCell GCELL, snk;
 	
 		else
 		{
-		 if(!priorityQueue.isGCellVsted(getGCellId(GCELL1))/* && priorityQueue.getGCellData(getGCellId(GCELL2).heapLoc == NULLID)*/)
+			QUEUEID = priorityQueue.getGCellData(getGCellId(GCELL1)).heapLoc;
+		 	if(!priorityQueue.isGCellVsted(getGCellId(GCELL1)) && QUEUEID == NULLID))
 			{
 			// gives it the ID, path cost, heuristic cost, and manhattan cost
 				priorityQueue.setGCellCost(getGCellId(GCELL1), pathCost+func(EDGEID)+lb(snk,GCELL1) ,pathCost+func(EDGEID), getGCellId(GCELL));  
 			}//checks to see if there is a better cost for that cell, if so it adds it
-			/*else if( priorityQueue.getGCellData(getGCellId(GCELL)).totalCost) > pathCost+func(EDGEID)+lb(snk,GCELL2)
+			else if( priorityQueue.getGCellData(getGCellId(GCELL)).totalCost) > pathCost+func(EDGEID)+lb(snk,GCELL2)
 			{
 				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL)); 
-			}*/
+			}
+		}
 
 	}
 	// just the same as above for the next 5 sides of the GCELL, I tried doing a function but kept getting errors and it seemed longer
 	//to make the function work than to just copy and change the code for the value (only difference is the EDGEID)
-		 EDGEID = GCELL.decX; 
-	if(getGCellId(GCELL1) == getGCellId(GCELL))
-		{
-			//checks to see if the GCELL Has been visited or is in the queue, if not it adds it 
-			 if(!priorityQueue.isGCellVsted(getGCellId(GCELL2)) && priorityQueue.getGCellData(getGCellId(GCELL2).heapLoc == NULLID))
-			{
-			// gives it the ID, path cost, heuristic cost, and manhattan cost
-				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL));  
-			}//checks to see if there is a better cost for that cell, if so it adds it
-			else if( priorityQueue.getGCellData(getGCellId(GCELL)).totalCost) > pathCost+func(EDGEID)+lb(snk,GCELL2)
-			{
-				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL)); 
-			}
-		}
+		 
 	
-		else
-		{
-		 if(!priorityQueue.isGCellVsted(getGCellId(GCELL1)) && priorityQueue.getGCellData(getGCellId(GCELL2).heapLoc == NULLID))
-			{
-			// gives it the ID, path cost, heuristic cost, and manhattan cost
-				priorityQueue.setGCellCost(getGCellId(GCELL1), pathCost+func(EDGEID)+lb(snk,GCELL1) ,pathCost+func(EDGEID), getGCellId(GCELL));  
-			}//checks to see if there is a better cost for that cell, if so it adds it
-			else if( priorityQueue.getGCellData(getGCellId(GCELL)).totalCost) > pathCost+func(EDGEID)+lb(snk,GCELL2)
-			{
-				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL)); 
-			}
-
-	}
-	
-		 EDGEID = GCELL.incY; 
-	if(getGCellId(GCELL1) == getGCellId(GCELL))
-		{
-			//checks to see if the GCELL Has been visited or is in the queue, if not it adds it 
-			 if(!priorityQueue.isGCellVsted(getGCellId(GCELL2)) && priorityQueue.getGCellData(getGCellId(GCELL2).heapLoc == NULLID))
-			{
-			// gives it the ID, path cost, heuristic cost, and manhattan cost
-				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL));  
-			}//checks to see if there is a better cost for that cell, if so it adds it
-			else if( priorityQueue.getGCellData(getGCellId(GCELL)).totalCost) > pathCost+func(EDGEID)+lb(snk,GCELL2)
-			{
-				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL)); 
-			}
-		}
-	
-		else
-		{
-		 if(!priorityQueue.isGCellVsted(getGCellId(GCELL1)) && priorityQueue.getGCellData(getGCellId(GCELL2).heapLoc == NULLID))
-			{
-			/*gives it the ID, path cost, heuristic cost, and manhattan cost*/
-				priorityQueue.setGCellCost(getGCellId(GCELL1), pathCost+func(EDGEID)+lb(snk,GCELL1) ,pathCost+func(EDGEID), getGCellId(GCELL));  
-			}//checks to see if there is a better cost for that cell, if so it adds it
-			else if( priorityQueue.getGCellData(getGCellId(GCELL)).totalCost) > pathCost+func(EDGEID)+lb(snk,GCELL2)
-			{
-				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL)); 
-			}
-
-	}
-	
-		 EDGEID = GCELL.decY; 
-	if(getGCellId(GCELL1) == getGCellId(GCELL))
-		{
-			//checks to see if the GCELL Has been visited or is in the queue, if not it adds it 
-			 if(!priorityQueue.isGCellVsted(getGCellId(GCELL2)) && priorityQueue.getGCellData(getGCellId(GCELL2).heapLoc == NULLID))
-			{
-			// gives it the ID, path cost, heuristic cost, and manhattan cost
-				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL));  
-			}//checks to see if there is a better cost for that cell, if so it adds it
-			else if( priorityQueue.getGCellData(getGCellId(GCELL)).totalCost) > pathCost+func(EDGEID)+lb(snk,GCELL2)
-			{
-				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL)); 
-			}
-		}
-	
-		else
-		{
-		 if(!priorityQueue.isGCellVsted(getGCellId(GCELL1)) && priorityQueue.getGCellData(getGCellId(GCELL2).heapLoc == NULLID))
-			{
-			// gives it the ID, path cost, heuristic cost, and manhattan cost
-				priorityQueue.setGCellCost(getGCellId(GCELL1), pathCost+func(EDGEID)+lb(snk,GCELL1) ,pathCost+func(EDGEID), getGCellId(GCELL));  
-			}//checks to see if there is a better cost for that cell, if so it adds it
-			else if( priorityQueue.getGCellData(getGCellId(GCELL)).totalCost) > pathCost+func(EDGEID)+lb(snk,GCELL2)
-			{
-				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL)); 
-			}
-
-	}
-	
-		 EDGEID = GCELL.incZ; 
-	if(getGCellId(GCELL1) == getGCellId(GCELL))
-		{
-			//checks to see if the GCELL Has been visited or is in the queue, if not it adds it 
-			 if(!priorityQueue.isGCellVsted(getGCellId(GCELL2)) && priorityQueue.getGCellData(getGCellId(GCELL2).heapLoc == NULLID))
-			{
-			// gives it the ID, path cost, heuristic cost, and manhattan cost
-				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL));  
-			}//checks to see if there is a better cost for that cell, if so it adds it
-			else if( priorityQueue.getGCellData(getGCellId(GCELL)).totalCost) > pathCost+func(EDGEID)+lb(snk,GCELL2)
-			{
-				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL)); 
-			}
-		}
-	
-		else
-		{
-		 if(!priorityQueue.isGCellVsted(getGCellId(GCELL1)) && priorityQueue.getGCellData(getGCellId(GCELL2).heapLoc == NULLID))
-			{
-			// gives it the ID, path cost, heuristic cost, and manhattan cost
-				priorityQueue.setGCellCost(getGCellId(GCELL1), pathCost+func(EDGEID)+lb(snk,GCELL1) ,pathCost+func(EDGEID), getGCellId(GCELL));  
-			}//checks to see if there is a better cost for that cell, if so it adds it
-			else if( priorityQueue.getGCellData(getGCellId(GCELL)).totalCost) > pathCost+func(EDGEID)+lb(snk,GCELL2)
-			{
-				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL)); 
-			}
-
-	}
-	
-		EDGEID = GCELL.decZ; 
-		if(getGCellId(GCELL1) == getGCellId(GCELL))
-		{
-			//checks to see if the GCELL Has been visited or is in the queue, if not it adds it 
-			 if(!priorityQueue.isGCellVsted(getGCellId(GCELL2)) && priorityQueue.getGCellData(getGCellId(GCELL2).heapLoc == NULLID))
-			{
-			// gives it the ID, path cost, heuristic cost, and manhattan cost
-				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL));  
-			}//checks to see if there is a better cost for that cell, if so it adds it
-			else if( priorityQueue.getGCellData(getGCellId(GCELL)).totalCost) > pathCost+func(EDGEID)+lb(snk,GCELL2)
-			{
-				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL)); 
-			}
-		}
-	
-		else
-		{
-		 if(!priorityQueue.isGCellVsted(getGCellId(GCELL1)) && priorityQueue.getGCellData(getGCellId(GCELL2).heapLoc == NULLID))
-			{
-			// gives it the ID, path cost, heuristic cost, and manhattan cost
-				priorityQueue.setGCellCost(getGCellId(GCELL1), pathCost+func(EDGEID)+lb(snk,GCELL1) ,pathCost+func(EDGEID), getGCellId(GCELL));  
-			}//checks to see if there is a better cost for that cell, if so it adds it
-			else if( priorityQueue.getGCellData(getGCellId(GCELL)).totalCost) > pathCost+func(EDGEID)+lb(snk,GCELL2)
-			{
-				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL)); 
-			}
-
-	}
-	*/
     // YOUR A* search CODE ENDS HERE
 }  } while (!priorityQueue.isEmpty());
 //current= node in openset having the lowest f_score[]
