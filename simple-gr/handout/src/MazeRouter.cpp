@@ -46,7 +46,7 @@ GCell GCELL, snk;
    //we just used our bestGCell and it wasn't there so we move it to closed
 	priorityQueue.rmBestGCell(); 
 	// get the edge Id to get the next GCELL values to check for
-	IdType EDGEID = GCELL.incX; 
+	 IdType EDGEID = GCELL.incX; 
 	//make sure it exisits 
 	if(EDGEID != NULLID )
 	{
@@ -85,7 +85,7 @@ GCell GCELL, snk;
 	}
 	// just the same as above for the next 5 sides of the GCELL, I tried doing a function but kept getting errors and it seemed longer
 	//to make the function work than to just copy and change the code for the value (only difference is the EDGEID)
-		IdType EDGEID = GCELL.decX; 
+		 EDGEID = GCELL.decX; 
 	if(getGCellId(GCELL1) == getGCellId(GCELL))
 		{
 			//checks to see if the GCELL Has been visited or is in the queue, if not it adds it 
@@ -114,7 +114,7 @@ GCell GCELL, snk;
 
 	}
 	
-		IdType EDGEID = GCELL.incY; 
+		 EDGEID = GCELL.incY; 
 	if(getGCellId(GCELL1) == getGCellId(GCELL))
 		{
 			//checks to see if the GCELL Has been visited or is in the queue, if not it adds it 
@@ -143,7 +143,7 @@ GCell GCELL, snk;
 
 	}
 	
-		IdType EDGEID = GCELL.decY; 
+		 EDGEID = GCELL.decY; 
 	if(getGCellId(GCELL1) == getGCellId(GCELL))
 		{
 			//checks to see if the GCELL Has been visited or is in the queue, if not it adds it 
@@ -172,8 +172,8 @@ GCell GCELL, snk;
 
 	}
 	
-		IdType EDGEID = GCELL.incZ; 
-if(getGCellId(GCELL1) == getGCellId(GCELL))
+		 EDGEID = GCELL.incZ; 
+	if(getGCellId(GCELL1) == getGCellId(GCELL))
 		{
 			//checks to see if the GCELL Has been visited or is in the queue, if not it adds it 
 			 if(!priorityQueue.isGCellVsted(getGCellId(GCELL2))/* && priorityQueue.getGCellData(getGCellId(GCELL2).heapLoc == NULLID)*/)
@@ -201,8 +201,8 @@ if(getGCellId(GCELL1) == getGCellId(GCELL))
 
 	}
 	
-		IdType EDGEID = GCELL.decZ; 
-if(getGCellId(GCELL1) == getGCellId(GCELL))
+		EDGEID = GCELL.decZ; 
+		if(getGCellId(GCELL1) == getGCellId(GCELL))
 		{
 			//checks to see if the GCELL Has been visited or is in the queue, if not it adds it 
 			 if(!priorityQueue.isGCellVsted(getGCellId(GCELL2))/* && priorityQueue.getGCellData(getGCellId(GCELL2).heapLoc == NULLID)*/)
@@ -233,14 +233,17 @@ if(getGCellId(GCELL1) == getGCellId(GCELL))
     // YOUR A* search CODE ENDS HERE
   } while (!priorityQueue.isEmpty());
 //current= node in openset having the lowest f_score[]
-
+GCELL=snk;
+IdType test; 
   // now backtrace and build up the path, if we found one
   // back-track from sink to source, and fill up 'path' vector with all the edges that are traversed
   if (priorityQueue.isGCellVsted(snkGCellId)) {    // YOUR backtrace CODE GOES IN
   // creates a loop to go through all the previous cells, stops when the source is the parent
 	while(priorityQueue.getGCellData(getGCellId(GCELL)).parentGCell != srcGCellId)
 	//stores the edge so it can be pushed onto the vector
-	Edge backtrace= grEdgeArr[IDEDGE(Gcell,  getGCell(priorityQueue.getGCellData(getGCellId(GCELL)).parentGCell))];
+	test = priorityQueue.getGCellData(getGCellId(GCELL)).parentGCell;  
+	EDGEID=IDEDGE(GCELL, getGCell(test));
+	Edge backtrace= grEdgeArr[EDGEID];
     	path.push(backtrace);
     	//navigates to the next GCELL to continue its back trace
     	GCELL = getGCell(priorityQueue.getGCellData(getGCellId(GCELL)).parentGCell);
