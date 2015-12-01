@@ -36,24 +36,16 @@ Gcell GCELL;
   do{ 
     // YOUR A* search CODE GOES IN HERE
 	GCELL = getGCell(priorityQueue.getBestGCell()); 
-	if((snk ==  GCELL){
+	snk = getGCell(snkGCellId);
+	if((snkGCellId ==  getGCellId(GCELL)){
    		break;} //got to get out of the loop somehow
 	priorityQueue.rmBestGCell(); 
-	
-	if(GCELL.incx != NULLID)
-	{ grEdgeArr[GCELL.incx]; 
-		if(getGCellId(Edge.gcell1) == getGCellId(GCELL))
-		{
-			 if(!isGCellVsted(EDGEINCX.gcell2))
-			{
-				const GCellData& Data= getGCellData(getGCellId(GCELL));
-				priorityQueue.setGCellCost(getGCellId(EDGEINCX.gcell2,Data.pathCost+func(EDGEINCX.id)+lb(snk,EDGEINCX.gcell2) , Data.pathCost+func(EDGEINCX.id), getGCellId(GCELL))  
-			}
-		}
-	}
-
-	
-
+	ADDQUEUE(GCELL,  priorityQueue, GCELL.incX, snk );
+	ADDQUEUE(GCELL,  priorityQueue, GCELL.incY, snk );
+	ADDQUEUE(GCELL,  priorityQueue, GCELL.incZ, snk );
+	ADDQUEUE(GCELL,  priorityQueue, GCELL.decX, snk );
+	ADDQUEUE(GCELL,  priorityQueue, GCELL.decY, snk );
+	ADDQUEUE(GCELL,  priorityQueue, GCELL.decZ, snk );
 
 
     // YOUR A* search CODE ENDS HERE
@@ -78,4 +70,45 @@ Gcell GCELL;
   return finalCost;
 }
 
+void ADDQUEUE(Gcell GCELL, Pqueue &priorityQueue, IdType EDGEID, const Gcell snk)
+{
+	if(EDGEID != NULLID )
+	{ 
+		if(getGCellId( grEdgeArr[EDGEID].gcell1) == getGCellId(GCELL))
+		{
+			 if(!isGCellVsted( grEdgeArr[EDGEID].gcell2))
+			{
+				const GCellData& Data= getGCellData(getGCellId(GCELL));
+				priorityQueue.setGCellCost(getGCellId( grEdgeArr[EDGEID].gcell2), Data.pathCost+func(EDGEID)+lb(snk, grEdgeArr[EDGEID].gcell2) , Data.pathCost+func(EDGEID), getGCellId(GCELL))  
+			}
+		}
+	}
+	else
+	{
+		if(!isGCellVsted( grEdgeArr[EDGEID].gcell1))
+			{
+				const GCellData& Data= getGCellData(getGCellId(GCELL));
+				priorityQueue.setGCellCost(getGCellId( grEdgeArr[EDGEID].gcell1) , Data.pathCost+func(EDGEID)+lb(snk, grEdgeArr[EDGEID].gcell1) , Data.pathCost+func(EDGEID), getGCellId(GCELL))  
+			}	
+	}
 
+	return;
+}
+
+IdType IDEDGE(Gcell Gcell1, Gcell Gcell2)
+{
+	if(Gcell1.incX == Gcell2.decX)
+		return Gcell1.incX
+	else if(Gcell1.decX == Gcell2.incX)
+		return Gcell2.incX
+	else if(Gcell1.incY == Gcell2.decY)
+		return Gcell1.incY
+	else if(Gcell1.decY == Gcell2.incY)
+		return Gcell2.incY
+	else if(Gcell1.incZ == Gcell2.decZ)
+		return Gcell1.incZ
+	else if(Gcell1.decZ == Gcell2.incZ)
+		return Gcell2.incZ
+	else 
+		return 0; 
+}
