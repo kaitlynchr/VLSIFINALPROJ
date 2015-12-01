@@ -250,7 +250,9 @@ IdType test;
     // YOUR backtrace CODE ENDS HERE
   }
 	//gets and stores the final edge  
-  	Edge backtrace= grEdgeArr[IDEDGE(Gcell,  getGCell(priorityQueue.getGCellData(getGCellId(GCELL)).parentGCell))];
+  	test = priorityQueue.getGCellData(getGCellId(GCELL)).parentGCell;  
+	EDGEID=IDEDGE(GCELL, getGCell(test));
+	Edge backtrace= grEdgeArr[EDGEID];
     	path.push(backtrace);
   // calculate the accumulated cost of the path (outputs the past via snkGCELLID for total cost )
   const CostType finalCost = priorityQueue.getGCellData(snkGCellId).totalCost;
