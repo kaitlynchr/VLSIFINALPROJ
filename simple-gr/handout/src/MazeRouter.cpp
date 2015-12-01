@@ -42,11 +42,15 @@ GCell GCELL, snk=getGCell(snkGCellId);
   	 //we just used our bestGCell and it wasn't there so we move it to closed
 	priorityQueue.rmBestGCell(); 
 	// get the edge Id to get the next GCELL values to check for
-	IdType EDGEID;
-	if(GCELL.x < topright.x-1){
-	 EDGEID = GCELL.incX;}
-	else{ EDGEID = GCELL.decX;} 
-	//make sure it exisits 
+	int checkValues=0; 
+	IdType EDGEID, LOOP[6];
+	//if(GCELL.x < topright.x-1){
+	// LOOP[checkValues] = GCELL.incX;
+	//checkValues++;}
+	//else if(GCELL.x > bottomleft.x-1) 
+	//{ LOOP[checkValues] = GCELL.decX;} 
+	//make sure it exisits
+	EDGEID = GCELL.incX; 
 	if(EDGEID != NULLID )
 	{
 		//puts GCELL1 and GCELL2 in their own GCELL to make cooding easier 
@@ -104,7 +108,8 @@ IdType test, EDGEID;
     	path.push_back(&backtrace);
     	//navigates to the next GCELL to continue its back trace
     	GCELL = getGCell(priorityQueue.getGCellData(getGCellId(GCELL)).parentGCell);
-    // YOUR backtrace CODE ENDS HERE
+  	cout<< getGCellId(GCELL)<<endl;
+	  // YOUR backtrace CODE ENDS HERE
   }
 	//gets and stores the final edge  
   	test = priorityQueue.getGCellData(getGCellId(GCELL)).parentGCell;  
