@@ -2,8 +2,8 @@ all: SimpleGR.exe mapper.exe benchmark
 
 CXX = g++
 
-OFLAGS = -pedantic -Wall -fomit-frame-pointer -funroll-all-loops -O3 -DNDEBUG
-#OFLAGS = -g
+#OFLAGS = -pedantic -Wall -fomit-frame-pointer -funroll-all-loops -O3 -DNDEBUG
+OFLAGS = -g
 
 LINKFLAGS = 
 

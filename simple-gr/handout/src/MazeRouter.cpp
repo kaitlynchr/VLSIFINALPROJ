@@ -27,45 +27,43 @@ CostType SimpleGR::routeMaze(Net& net, bool allowOverflow, const Point &botleft,
   // Instantiate the Cost function to calculate the Manhattan distance between
   // two gcells. This distance is used as the heuristic cost for A* search.
   ManhattanCost &lb = ManhattanCost::getFunc();
-//A*(const Point src, const Point snk)
+GCell GCELL, snk=getGCell(snkGCellId);
 {
-GCell GCELL, snk; 
   // A* search kernel
   // Loop until all "frontiers" in the priority queue are exhausted, or when
   // the sink gcell is found.
   do{ 
     // YOUR A* search CODE GOES IN HERE
-    
     //start off with the best GCELL to help decide where to go next
 	GCELL = getGCell(priorityQueue.getBestGCell()); 
-	//for making coding easier we are going to have the snk gcell for use in the manhattan function
-	snk = getGCell(snkGCellId);
 	//here we check to see if we have reaced our end result, if so we get out of the loop.
 	if(snkGCellId ==  getGCellId(GCELL)){
    		break;} //got to get out of the loop somehow
-   //we just used our bestGCell and it wasn't there so we move it to closed
+  	 //we just used our bestGCell and it wasn't there so we move it to closed
 	priorityQueue.rmBestGCell(); 
 	// get the edge Id to get the next GCELL values to check for
-	 IdType QUEUEID, EDGEID = GCELL.incX; 
+	IdType EDGEID;
+	if(GCELL.x < topright.x-1){
+	 EDGEID = GCELL.incX;}
+	else{ EDGEID = GCELL.decX;} 
 	//make sure it exisits 
 	if(EDGEID != NULLID )
 	{
 		//puts GCELL1 and GCELL2 in their own GCELL to make cooding easier 
 	GCell GCELL1 = *grEdgeArr[EDGEID].gcell1;
-	GCell GCELL2 =*grEdgeArr[EDGEID].gcell2; 
+	GCell GCELL2 = *grEdgeArr[EDGEID].gcell2; 
 	//gets the path cost of the current GCELL to add to our calculations 
 	float pathCost = priorityQueue.getGCellData(getGCellId(GCELL)).pathCost;
 		//figures out which GCELL to use (the one that is not the same as the current)
 		if(getGCellId(GCELL1) == getGCellId(GCELL))
 		{
-			 QUEUEID = priorityQueue.getGCellData(getGCellId(GCELL2)).heapLoc; 
 			//checks to see if the GCELL Has been visited or is in the queue, if not it adds it 
-			 if(!priorityQueue.isGCellVsted(getGCellId(GCELL2))&& QUEUEID == NULLID)
+			 if(!priorityQueue.isGCellVsted(getGCellId(GCELL2)))
 			{
 			// gives it the ID, path cost, heuristic cost, and manhattan cost
 				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL));  
 			}//checks to see if there is a better cost for that cell, if so it adds it
-			else if( priorityQueue.getGCellData(getGCellId(GCELL)).totalCost > pathCost+func(EDGEID)+lb(snk,GCELL2))
+			else if( priorityQueue.getGCellData(getGCellId(GCELL2)).totalCost > pathCost+func(EDGEID)+lb(snk,GCELL2))
 			{
 				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL)); 
 			}
@@ -73,15 +71,14 @@ GCell GCELL, snk;
 	
 		else
 		{
-			QUEUEID = priorityQueue.getGCellData(getGCellId(GCELL1)).heapLoc;
-		 	if(!priorityQueue.isGCellVsted(getGCellId(GCELL1)) && QUEUEID == NULLID)
+		 	if(!priorityQueue.isGCellVsted(getGCellId(GCELL1)))
 			{
 			// gives it the ID, path cost, heuristic cost, and manhattan cost
 				priorityQueue.setGCellCost(getGCellId(GCELL1), pathCost+func(EDGEID)+lb(snk,GCELL1) ,pathCost+func(EDGEID), getGCellId(GCELL));  
 			}//checks to see if there is a better cost for that cell, if so it adds it
-			else if( priorityQueue.getGCellData(getGCellId(GCELL)).totalCost > pathCost+func(EDGEID)+lb(snk,GCELL2)
+			else if( priorityQueue.getGCellData(getGCellId(GCELL1)).totalCost > pathCost+func(EDGEID)+lb(snk,GCELL1))
 			{
-				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL)); 
+				priorityQueue.setGCellCost(getGCellId(GCELL1), pathCost+func(EDGEID)+lb(snk,GCELL1) ,pathCost+func(EDGEID), getGCellId(GCELL)); 
 			}
 		}
 
@@ -91,8 +88,8 @@ GCell GCELL, snk;
 		 
 	
     // YOUR A* search CODE ENDS HERE
-}  } while (!priorityQueue.isEmpty());
-//current= node in openset having the lowest f_score[]
+  } while (!priorityQueue.isEmpty());
+
 GCELL=getGCell(snkGCellId);
 IdType test, EDGEID; 
   // now backtrace and build up the path, if we found one
