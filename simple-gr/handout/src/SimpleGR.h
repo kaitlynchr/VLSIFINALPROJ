@@ -365,7 +365,8 @@ private:
 
   // !!! More function declarations should go here
   // !!!function declare
-
+void ADDQUEUE(GCell GCELL, PQueue &priorityQueue, IdType EDGEID, const GCell snk);
+IdType IDEDGE(GCell Gcell1, GCell Gcell2);
 public:
 
   //Constructor

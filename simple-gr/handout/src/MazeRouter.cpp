@@ -29,7 +29,7 @@ CostType SimpleGR::routeMaze(Net& net, bool allowOverflow, const Point &botleft,
   ManhattanCost &lb = ManhattanCost::getFunc();
 //A*(const Point src, const Point snk)
 {
-Gcell GCELL; 
+GCell GCELL, snk; 
   // A* search kernel
   // Loop until all "frontiers" in the priority queue are exhausted, or when
   // the sink gcell is found.
@@ -37,7 +37,7 @@ Gcell GCELL;
     // YOUR A* search CODE GOES IN HERE
 	GCELL = getGCell(priorityQueue.getBestGCell()); 
 	snk = getGCell(snkGCellId);
-	if((snkGCellId ==  getGCellId(GCELL)){
+	if(snkGCellId ==  getGCellId(GCELL)){
    		break;} //got to get out of the loop somehow
 	priorityQueue.rmBestGCell(); 
 	ADDQUEUE(GCELL,  priorityQueue, GCELL.incX, snk );
@@ -56,7 +56,7 @@ Gcell GCELL;
   // back-track from sink to source, and fill up 'path' vector with all the edges that are traversed
   if (priorityQueue.isGCellVsted(snkGCellId)) {
     // YOUR backtrace CODE GOES IN HERE
-	path.push(EDGE 	);	
+//	path.push(EDGE 	);	
     // YOUR backtrace CODE ENDS HERE
   }
   // calculate the accumulated cost of the path
@@ -70,7 +70,8 @@ Gcell GCELL;
   return finalCost;
 }
 
-void ADDQUEUE(Gcell GCELL, Pqueue &priorityQueue, IdType EDGEID, const Gcell snk)
+
+void ADDQUEUE(GCell GCELL, PQueue &priorityQueue, IdType EDGEID, const GCell snk)
 {
 	if(EDGEID != NULLID )
 	{ 
@@ -95,7 +96,7 @@ void ADDQUEUE(Gcell GCELL, Pqueue &priorityQueue, IdType EDGEID, const Gcell snk
 	return;
 }
 
-IdType IDEDGE(Gcell Gcell1, Gcell Gcell2)
+IdType IDEDGE(GCell Gcell1, GCell Gcell2)
 {
 	if(Gcell1.incX == Gcell2.decX)
 		return Gcell1.incX
