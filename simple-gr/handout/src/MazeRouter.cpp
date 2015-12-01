@@ -54,8 +54,7 @@ GCell GCELL, snk;
 
   // now backtrace and build up the path, if we found one
   // back-track from sink to source, and fill up 'path' vector with all the edges that are traversed
-  if (priorityQueue.isGCellVsted(snkGCellId)) {
-    // YOUR backtrace CODE GOES IN HERE
+  if (priorityQueue.isGCellVsted(snkGCellId)) {    // YOUR backtrace CODE GOES IN HERE
 //	path.push(EDGE 	);	
     // YOUR backtrace CODE ENDS HERE
   }

@@ -58,7 +58,7 @@ public:
     return *this;
   }
 
-  void setCoord(CoordType x_, CoordType y_, CoordType z_) {
+void setCoord(CoordType x_, CoordType y_, CoordType z_) {
     x = x_;
     y = y_;
     z = z_;
@@ -69,6 +69,7 @@ inline bool operator==(const Point &a, const Point &b)
 {
   return a.x == b.x && a.y == b.y && a.z == b.z;
 }
+
 
 inline bool operator!=(const Point &a, const Point &b)
 {
@@ -183,7 +184,7 @@ class PQueue
     vector<IdType> setBits;
     vector<bool> bits;
 
-  public:
+  public: 
     BitBoard() :
         setBits(0), bits(0)
     {
@@ -280,7 +281,6 @@ private:
   void print(void) const;
 
 public:
-
   bool layerAssign;
   bool verbose;
   unsigned maxRipIter, maxGreedyIter;
@@ -365,25 +365,28 @@ private:
 
   // !!! More function declarations should go here
   // !!!function declare
-void ADDQUEUE(GCell GCELL, PQueue &priorityQueue, IdType EDGEID, const GCell snk)
+void ADDQUEUE(GCell GCELL,  IdType EDGEID, const GCell snk,const EdgeCost &func )
 {
+ 	 ManhattanCost &lb = ManhattanCost::getFunc();
+	Edge EDGE = grEdgeArr[EDGEID];
 	if(EDGEID != NULLID )
 	{ 
-		if(getGCellId( grEdgeArr[EDGEID].gcell1) == getGCellId(GCELL))
+		if(getGCellId(*grEdgeArr[EDGEID].gcell1) == getGCellId(GCELL))
 		{
-			 if(!isGCellVsted( grEdgeArr[EDGEID].gcell2))
+			 if(!priorityQueue.isGCellVsted(getGCellId(*grEdgeArr[EDGEID].gcell2)))
 			{
-				const GCellData& Data= getGCellData(getGCellId(GCELL));
-				priorityQueue.setGCellCost(getGCellId( grEdgeArr[EDGEID].gcell2), Data.pathCost+func(EDGEID)+lb(snk, grEdgeArr[EDGEID].gcell2) , Data.pathCost+func(EDGEID), getGCellId(GCELL))  
+			//	GCellData Data=priorityQueue.get
+				float pathCost = 7; // priorityQueue.getGCellData(GCELL).pathCost; 
+				priorityQueue.setGCellCost(getGCellId(* grEdgeArr[EDGEID].gcell2), pathCost+func(EDGEID)+lb(snk,* grEdgeArr[EDGEID].gcell2) ,pathCost+func(EDGEID), getGCellId(GCELL));  
 			}
 		}
 	}
 	else
 	{
-		if(!isGCellVsted( grEdgeArr[EDGEID].gcell1))
+		if(!priorityQueue.isGCellVsted(* grEdgeArr[EDGEID].gcell1))
 			{
-				const GCellData& Data= getGCellData(getGCellId(GCELL));
-				priorityQueue.setGCellCost(getGCellId( grEdgeArr[EDGEID].gcell1) , Data.pathCost+func(EDGEID)+lb(snk, grEdgeArr[EDGEID].gcell1) , Data.pathCost+func(EDGEID), getGCellId(GCELL))  
+				const GCellData Data= priorityQueue.getGCellData(getGCellId(GCELL));
+				priorityQueue.setGCellCost(getGCellId( *grEdgeArr[EDGEID].gcell1) , Data.pathCost+func(EDGEID)+lb(snk,*grEdgeArr[EDGEID].gcell1) , Data.pathCost+func(EDGEID), getGCellId(GCELL));  
 			}	
 	}
 
@@ -393,17 +396,17 @@ void ADDQUEUE(GCell GCELL, PQueue &priorityQueue, IdType EDGEID, const GCell snk
 IdType IDEDGE(GCell Gcell1, GCell Gcell2)
 {
 	if(Gcell1.incX == Gcell2.decX)
-		return Gcell1.incX
+		return Gcell1.incX;
 	else if(Gcell1.decX == Gcell2.incX)
-		return Gcell2.incX
+		return Gcell2.incX;
 	else if(Gcell1.incY == Gcell2.decY)
-		return Gcell1.incY
+		return Gcell1.incY;
 	else if(Gcell1.decY == Gcell2.incY)
-		return Gcell2.incY
+		return Gcell2.incY;
 	else if(Gcell1.incZ == Gcell2.decZ)
-		return Gcell1.incZ
+		return Gcell1.incZ;
 	else if(Gcell1.decZ == Gcell2.incZ)
-		return Gcell2.incZ
+		return Gcell2.incZ;
 	else 
 		return 0; 
 }
@@ -528,6 +531,7 @@ public:
   static ManhattanCost& getFunc()
   {
     static ManhattanCost em;
+f(!isGCellVsted( grEdgeArr[EDGEID].gcell2))
     return em;
   }
   // Functor API, returns Manhattan distance
