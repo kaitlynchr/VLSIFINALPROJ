@@ -231,10 +231,10 @@ GCell GCELL, snk;
 	}
 	
     // YOUR A* search CODE ENDS HERE
-  } while (!priorityQueue.isEmpty());
+}  } while (!priorityQueue.isEmpty());
 //current= node in openset having the lowest f_score[]
 GCELL=snk;
-IdType test; 
+IdType test, EDGEID; 
   // now backtrace and build up the path, if we found one
   // back-track from sink to source, and fill up 'path' vector with all the edges that are traversed
   if (priorityQueue.isGCellVsted(snkGCellId)) {    // YOUR backtrace CODE GOES IN
@@ -244,7 +244,7 @@ IdType test;
 	test = priorityQueue.getGCellData(getGCellId(GCELL)).parentGCell;  
 	EDGEID=IDEDGE(GCELL, getGCell(test));
 	Edge backtrace= grEdgeArr[EDGEID];
-    	path.push(backtrace);
+    	path.push_back(&backtrace);
     	//navigates to the next GCELL to continue its back trace
     	GCELL = getGCell(priorityQueue.getGCellData(getGCellId(GCELL)).parentGCell);
     // YOUR backtrace CODE ENDS HERE
@@ -252,8 +252,8 @@ IdType test;
 	//gets and stores the final edge  
   	test = priorityQueue.getGCellData(getGCellId(GCELL)).parentGCell;  
 	EDGEID=IDEDGE(GCELL, getGCell(test));
-	Edge backtrace= grEdgeArr[EDGEID];
-    	path.push(backtrace);
+	Edge backtrace=grEdgeArr[EDGEID];
+    	path.push_back(&backtrace);
   // calculate the accumulated cost of the path (outputs the past via snkGCELLID for total cost )
   const CostType finalCost = priorityQueue.getGCellData(snkGCellId).totalCost;
       priorityQueue.isGCellVsted(snkGCellId) ?
@@ -263,4 +263,4 @@ IdType test;
   priorityQueue.clear();
 
   return finalCost;
-}
+}}
