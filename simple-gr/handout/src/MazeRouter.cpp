@@ -40,13 +40,33 @@ GCell GCELL, snk;
 	if(snkGCellId ==  getGCellId(GCELL)){
    		break;} //got to get out of the loop somehow
 	priorityQueue.rmBestGCell(); 
-	ADDQUEUE(GCELL,  priorityQueue, GCELL.incX, snk );
-	ADDQUEUE(GCELL,  priorityQueue, GCELL.incY, snk );
-	ADDQUEUE(GCELL,  priorityQueue, GCELL.incZ, snk );
-	ADDQUEUE(GCELL,  priorityQueue, GCELL.decX, snk );
-	ADDQUEUE(GCELL,  priorityQueue, GCELL.decY, snk );
-	ADDQUEUE(GCELL,  priorityQueue, GCELL.decZ, snk );
+void ADDQUEUE(GCell GCELL,  IdType EDGEID, const GCell snk,const EdgeCost &func )
+{
+ 	 ManhattanCost &lb = ManhattanCost::getFunc();
+	Edge EDGE = grEdgeArr[EDGEID];
+	if(EDGEID != NULLID )
+	{ 
+		if(getGCellId(*grEdgeArr[EDGEID].gcell1) == getGCellId(GCELL))
+		{
+			 if(!priorityQueue.isGCellVsted(getGCellId(*grEdgeArr[EDGEID].gcell2)))
+			{
+			//	GCellData Data=priorityQueue.get
+				float pathCost = 7; // priorityQueue.getGCellData(GCELL).pathCost; 
+				priorityQueue.setGCellCost(getGCellId(* grEdgeArr[EDGEID].gcell2), pathCost+func(EDGEID)+lb(snk,* grEdgeArr[EDGEID].gcell2) ,pathCost+func(EDGEID), getGCellId(GCELL));  
+			}
+		}
+	}
+	else
+	{
+		if(!priorityQueue.isGCellVsted(* grEdgeArr[EDGEID].gcell1))
+			{
+				const GCellData Data= priorityQueue.getGCellData(getGCellId(GCELL));
+				priorityQueue.setGCellCost(getGCellId( *grEdgeArr[EDGEID].gcell1) , Data.pathCost+func(EDGEID)+lb(snk,*grEdgeArr[EDGEID].gcell1) , Data.pathCost+func(EDGEID), getGCellId(GCELL));  
+			}	
+	}
 
+	return;
+}
 
     // YOUR A* search CODE ENDS HERE
   } while (!priorityQueue.isEmpty());
