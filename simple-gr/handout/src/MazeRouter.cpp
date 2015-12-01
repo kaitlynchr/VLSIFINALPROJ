@@ -46,7 +46,7 @@ GCell GCELL, snk;
    //we just used our bestGCell and it wasn't there so we move it to closed
 	priorityQueue.rmBestGCell(); 
 	// get the edge Id to get the next GCELL values to check for
-	 IdType PARENT, EDGEID = GCELL.incX; 
+	 IdType EDGEID = GCELL.incX; 
 	//make sure it exisits 
 	if(EDGEID != NULLID )
 	{
@@ -58,7 +58,7 @@ GCell GCELL, snk;
 		//figures out which GCELL to use (the one that is not the same as the current)
 		if(getGCellId(GCELL1) == getGCellId(GCELL))
 		{
-			PARENT = priorityQueue.getGCellData(getGCellId(GCELL2).heapLoc; 
+			IdTypr PARENT = priorityQueue.getGCellData(getGCellId(GCELL2).heapLoc; 
 		/*	//checks to see if the GCELL Has been visited or is in the queue, if not it adds it 
 			 if(!priorityQueue.isGCellVsted(getGCellId(GCELL2))&& PARENT == NULLID))
 			{
