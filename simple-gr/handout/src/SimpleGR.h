@@ -365,33 +365,7 @@ private:
 
   // !!! More function declarations should go here
   // !!!function declare
-void ADDQUEUE(GCell GCELL,  IdType EDGEID, const GCell snk,const EdgeCost &func )
-{
- 	 ManhattanCost &lb = ManhattanCost::getFunc();
-	Edge EDGE = grEdgeArr[EDGEID];
-	if(EDGEID != NULLID )
-	{ 
-		if(getGCellId(*grEdgeArr[EDGEID].gcell1) == getGCellId(GCELL))
-		{
-			 if(!priorityQueue.isGCellVsted(getGCellId(*grEdgeArr[EDGEID].gcell2)))
-			{
-			//	GCellData Data=priorityQueue.get
-				float pathCost = 7; // priorityQueue.getGCellData(GCELL).pathCost; 
-				priorityQueue.setGCellCost(getGCellId(* grEdgeArr[EDGEID].gcell2), pathCost+func(EDGEID)+lb(snk,* grEdgeArr[EDGEID].gcell2) ,pathCost+func(EDGEID), getGCellId(GCELL));  
-			}
-		}
-	}
-	else
-	{
-		if(!priorityQueue.isGCellVsted(* grEdgeArr[EDGEID].gcell1))
-			{
-				const GCellData Data= priorityQueue.getGCellData(getGCellId(GCELL));
-				priorityQueue.setGCellCost(getGCellId( *grEdgeArr[EDGEID].gcell1) , Data.pathCost+func(EDGEID)+lb(snk,*grEdgeArr[EDGEID].gcell1) , Data.pathCost+func(EDGEID), getGCellId(GCELL));  
-			}	
-	}
 
-	return;
-}
 
 IdType IDEDGE(GCell Gcell1, GCell Gcell2)
 {
