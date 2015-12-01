@@ -505,7 +505,6 @@ public:
   static ManhattanCost& getFunc()
   {
     static ManhattanCost em;
-f(!isGCellVsted( grEdgeArr[EDGEID].gcell2))
     return em;
   }
   // Functor API, returns Manhattan distance
