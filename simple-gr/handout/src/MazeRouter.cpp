@@ -65,6 +65,138 @@ GCell GCELL, snk;
 		}
 
 	}
+	
+		IdType EDGEID = GCELL.decX; 
+	if(EDGEID != NULLID )
+	{
+	GCell GCELL1 = *grEdgeArr[EDGEID].gcell1;
+	GCell GCELL2 =*grEdgeArr[EDGEID].gcell2; 
+	float pathCost = priorityQueue.getGCellData(getGCellId(GCELL)).pathCost;
+		if(getGCellId(GCELL1) == getGCellId(GCELL))
+		{
+			 if(!priorityQueue.isGCellVsted(getGCellId(GCELL2)))
+			{
+			//	GCellData Data=priorityQueue.get
+				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL));  
+			}
+		}
+	
+		else
+		{
+		if(!priorityQueue.isGCellVsted(getGCellId(GCELL1)))
+			{
+			//	const GCellData Data= priorityQueue.getGCellData(getGCellId(GCELL));
+				priorityQueue.setGCellCost(getGCellId(GCELL1) , pathCost+func(EDGEID)+lb(snk,GCELL1) , pathCost+func(EDGEID), getGCellId(GCELL));  
+			}	
+		}
+
+	}
+	
+		IdType EDGEID = GCELL.incY; 
+	if(EDGEID != NULLID )
+	{
+	GCell GCELL1 = *grEdgeArr[EDGEID].gcell1;
+	GCell GCELL2 =*grEdgeArr[EDGEID].gcell2; 
+	float pathCost = priorityQueue.getGCellData(getGCellId(GCELL)).pathCost;
+		if(getGCellId(GCELL1) == getGCellId(GCELL))
+		{
+			 if(!priorityQueue.isGCellVsted(getGCellId(GCELL2)))
+			{
+			//	GCellData Data=priorityQueue.get
+				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL));  
+			}
+		}
+	
+		else
+		{
+		if(!priorityQueue.isGCellVsted(getGCellId(GCELL1)))
+			{
+			//	const GCellData Data= priorityQueue.getGCellData(getGCellId(GCELL));
+				priorityQueue.setGCellCost(getGCellId(GCELL1) , pathCost+func(EDGEID)+lb(snk,GCELL1) , pathCost+func(EDGEID), getGCellId(GCELL));  
+			}	
+		}
+
+	}
+	
+		IdType EDGEID = GCELL.decY; 
+	if(EDGEID != NULLID )
+	{
+	GCell GCELL1 = *grEdgeArr[EDGEID].gcell1;
+	GCell GCELL2 =*grEdgeArr[EDGEID].gcell2; 
+	float pathCost = priorityQueue.getGCellData(getGCellId(GCELL)).pathCost;
+		if(getGCellId(GCELL1) == getGCellId(GCELL))
+		{
+			 if(!priorityQueue.isGCellVsted(getGCellId(GCELL2)))
+			{
+			//	GCellData Data=priorityQueue.get
+				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL));  
+			}
+		}
+	
+		else
+		{
+		if(!priorityQueue.isGCellVsted(getGCellId(GCELL1)))
+			{
+			//	const GCellData Data= priorityQueue.getGCellData(getGCellId(GCELL));
+				priorityQueue.setGCellCost(getGCellId(GCELL1) , pathCost+func(EDGEID)+lb(snk,GCELL1) , pathCost+func(EDGEID), getGCellId(GCELL));  
+			}	
+		}
+
+	}
+	
+		IdType EDGEID = GCELL.incZ; 
+	if(EDGEID != NULLID )
+	{
+	GCell GCELL1 = *grEdgeArr[EDGEID].gcell1;
+	GCell GCELL2 =*grEdgeArr[EDGEID].gcell2; 
+	float pathCost = priorityQueue.getGCellData(getGCellId(GCELL)).pathCost;
+		if(getGCellId(GCELL1) == getGCellId(GCELL))
+		{
+			 if(!priorityQueue.isGCellVsted(getGCellId(GCELL2)))
+			{
+			//	GCellData Data=priorityQueue.get
+				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL));  
+			}
+		}
+	
+		else
+		{
+		if(!priorityQueue.isGCellVsted(getGCellId(GCELL1)))
+			{
+			//	const GCellData Data= priorityQueue.getGCellData(getGCellId(GCELL));
+				priorityQueue.setGCellCost(getGCellId(GCELL1) , pathCost+func(EDGEID)+lb(snk,GCELL1) , pathCost+func(EDGEID), getGCellId(GCELL));  
+			}	
+		}
+
+	}
+	
+		IdType EDGEID = GCELL.decZ; 
+	if(EDGEID != NULLID )
+	{
+	GCell GCELL1 = *grEdgeArr[EDGEID].gcell1;
+	GCell GCELL2 =*grEdgeArr[EDGEID].gcell2; 
+	float pathCost = priorityQueue.getGCellData(getGCellId(GCELL)).pathCost;
+		if(getGCellId(GCELL1) == getGCellId(GCELL))
+		{
+			 if(!priorityQueue.isGCellVsted(getGCellId(GCELL2)))
+			{
+			//	GCellData Data=priorityQueue.get
+				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL));  
+			}
+		}
+	
+		else
+		{
+		if(!priorityQueue.isGCellVsted(getGCellId(GCELL1)))
+			{
+			//	const GCellData Data= priorityQueue.getGCellData(getGCellId(GCELL));
+				priorityQueue.setGCellCost(getGCellId(GCELL1) , pathCost+func(EDGEID)+lb(snk,GCELL1) , pathCost+func(EDGEID), getGCellId(GCELL));  
+			}	
+		}
+
+	}
+	
+	
     // YOUR A* search CODE ENDS HERE
   } while (!priorityQueue.isEmpty());
 //current= node in openset having the lowest f_score[]
