@@ -58,9 +58,9 @@ GCell GCELL, snk;
 		//figures out which GCELL to use (the one that is not the same as the current)
 		if(getGCellId(GCELL1) == getGCellId(GCELL))
 		{
-			IdTypr PARENT = priorityQueue.getGCellData(getGCellId(GCELL2).heapLoc; 
+			IdType QUEUEID = priorityQueue.getGCellData(getGCellId(GCELL2)).heapLoc; 
 		/*	//checks to see if the GCELL Has been visited or is in the queue, if not it adds it 
-			 if(!priorityQueue.isGCellVsted(getGCellId(GCELL2))&& PARENT == NULLID))
+			 if(!priorityQueue.isGCellVsted(getGCellId(GCELL2))&& QUEUEID == NULLID))
 			{
 			// gives it the ID, path cost, heuristic cost, and manhattan cost
 				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL));  
