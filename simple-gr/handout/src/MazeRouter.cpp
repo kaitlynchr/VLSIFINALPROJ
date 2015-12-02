@@ -47,11 +47,11 @@ GCell GCELL, snk=getGCell(snkGCellId);
 	if(GCELL.x < topright.x-1){
 	 LOOP[checkValues] = GCELL.incX;
 	checkValues++;}
-	else if(GCELL.x > bottomleft.x-1) 
-	{ LOOP[checkValues] = GCELL.decX;} 
+	else if(GCELL.x > botleft.x-1) 
+	{ LOOP[checkValues] = GCELL.decX;
+	checkValues++;} 
 	//make sure it exisits
-	EDGEID = GCELL.incX; 
-	for(int i=0, i<checkValues+1, i++)
+	for(int i=0; i < checkValues; i++)
 	{
 		EDGEID=LOOP[i];
 		if(EDGEID != NULLID )
