@@ -44,52 +44,54 @@ GCell GCELL, snk=getGCell(snkGCellId);
 	// get the edge Id to get the next GCELL values to check for
 	int checkValues=0; 
 	IdType EDGEID, LOOP[6];
-	//if(GCELL.x < topright.x-1){
-	// LOOP[checkValues] = GCELL.incX;
-	//checkValues++;}
-	//else if(GCELL.x > bottomleft.x-1) 
-	//{ LOOP[checkValues] = GCELL.decX;} 
+	if(GCELL.x < topright.x-1){
+	 LOOP[checkValues] = GCELL.incX;
+	checkValues++;}
+	else if(GCELL.x > bottomleft.x-1) 
+	{ LOOP[checkValues] = GCELL.decX;} 
 	//make sure it exisits
 	EDGEID = GCELL.incX; 
-	if(EDGEID != NULLID )
+	for(int i=0, i<checkValues+1, i++)
 	{
-		//puts GCELL1 and GCELL2 in their own GCELL to make cooding easier 
-	GCell GCELL1 = *grEdgeArr[EDGEID].gcell1;
-	GCell GCELL2 = *grEdgeArr[EDGEID].gcell2; 
-	//gets the path cost of the current GCELL to add to our calculations 
-	float pathCost = priorityQueue.getGCellData(getGCellId(GCELL)).pathCost;
-		//figures out which GCELL to use (the one that is not the same as the current)
-		if(getGCellId(GCELL1) == getGCellId(GCELL))
+		EDGEID=LOOP[i];
+		if(EDGEID != NULLID )
 		{
-			//checks to see if the GCELL Has been visited or is in the queue, if not it adds it 
-			 if(!priorityQueue.isGCellVsted(getGCellId(GCELL2)))
+			//puts GCELL1 and GCELL2 in their own GCELL to make cooding easier 
+		GCell GCELL1 = *grEdgeArr[EDGEID].gcell1;
+		GCell GCELL2 = *grEdgeArr[EDGEID].gcell2; 
+		//gets the path cost of the current GCELL to add to our calculations 
+		float pathCost = priorityQueue.getGCellData(getGCellId(GCELL)).pathCost;
+			//figures out which GCELL to use (the one that is not the same as the current)
+			if(getGCellId(GCELL1) == getGCellId(GCELL))
 			{
-			// gives it the ID, path cost, heuristic cost, and manhattan cost
-				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL));  
-			}//checks to see if there is a better cost for that cell, if so it adds it
-			else if( priorityQueue.getGCellData(getGCellId(GCELL2)).totalCost > pathCost+func(EDGEID)+lb(snk,GCELL2))
-			{
-				priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL)); 
+				//checks to see if the GCELL Has been visited or is in the queue, if not it adds it 
+				 if(!priorityQueue.isGCellVsted(getGCellId(GCELL2)))
+				{
+				// gives it the ID, path cost, heuristic cost, and manhattan cost
+					priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL));  
+				}//checks to see if there is a better cost for that cell, if so it adds it
+				else if( priorityQueue.getGCellData(getGCellId(GCELL2)).totalCost > pathCost+func(EDGEID)+lb(snk,GCELL2))
+				{
+					priorityQueue.setGCellCost(getGCellId(GCELL2), pathCost+func(EDGEID)+lb(snk,GCELL2) ,pathCost+func(EDGEID), getGCellId(GCELL)); 
+				}
 			}
-		}
+		
+			else
+			{
+			 	if(!priorityQueue.isGCellVsted(getGCellId(GCELL1)))
+				{
+				// gives it the ID, path cost, heuristic cost, and manhattan cost
+					priorityQueue.setGCellCost(getGCellId(GCELL1), pathCost+func(EDGEID)+lb(snk,GCELL1) ,pathCost+func(EDGEID), getGCellId(GCELL));  
+				}//checks to see if there is a better cost for that cell, if so it adds it
+				else if( priorityQueue.getGCellData(getGCellId(GCELL1)).totalCost > pathCost+func(EDGEID)+lb(snk,GCELL1))
 	
-		else
-		{
-		 	if(!priorityQueue.isGCellVsted(getGCellId(GCELL1)))
-			{
-			// gives it the ID, path cost, heuristic cost, and manhattan cost
-				priorityQueue.setGCellCost(getGCellId(GCELL1), pathCost+func(EDGEID)+lb(snk,GCELL1) ,pathCost+func(EDGEID), getGCellId(GCELL));  
-			}//checks to see if there is a better cost for that cell, if so it adds it
-<<<<<<< HEAD
-			else if( priorityQueue.getGCellData(getGCellId(GCELL1)).totalCost > pathCost+func(EDGEID)+lb(snk,GCELL1))
-=======
-			else if( priorityQueue.getGCellData(getGCellId(GCELL)).totalCost > pathCost+func(EDGEID)+lb(snk,GCELL2))
->>>>>>> 4aa2ad563b2b33df6ddce4f26ec22c2fe2d122d8
-			{
-				priorityQueue.setGCellCost(getGCellId(GCELL1), pathCost+func(EDGEID)+lb(snk,GCELL1) ,pathCost+func(EDGEID), getGCellId(GCELL)); 
+				else if( priorityQueue.getGCellData(getGCellId(GCELL)).totalCost > pathCost+func(EDGEID)+lb(snk,GCELL2))
+				{
+					priorityQueue.setGCellCost(getGCellId(GCELL1), pathCost+func(EDGEID)+lb(snk,GCELL1) ,pathCost+func(EDGEID), getGCellId(GCELL)); 
+				}
 			}
+	
 		}
-
 	}
 	// just the same as above for the next 5 sides of the GCELL, I tried doing a function but kept getting errors and it seemed longer
 	//to make the function work than to just copy and change the code for the value (only difference is the EDGEID)
