@@ -58,7 +58,7 @@ public:
     return *this;
   }
 
-void setCoord(CoordType x_, CoordType y_, CoordType z_) {
+  void setCoord(CoordType x_, CoordType y_, CoordType z_) {
     x = x_;
     y = y_;
     z = z_;
@@ -69,7 +69,6 @@ inline bool operator==(const Point &a, const Point &b)
 {
   return a.x == b.x && a.y == b.y && a.z == b.z;
 }
-
 
 inline bool operator!=(const Point &a, const Point &b)
 {
@@ -184,7 +183,7 @@ class PQueue
     vector<IdType> setBits;
     vector<bool> bits;
 
-  public: 
+  public:
     BitBoard() :
         setBits(0), bits(0)
     {
@@ -281,6 +280,7 @@ private:
   void print(void) const;
 
 public:
+
   bool layerAssign;
   bool verbose;
   unsigned maxRipIter, maxGreedyIter;
@@ -365,8 +365,6 @@ private:
 
   // !!! More function declarations should go here
   // !!!function declare
-
-
 IdType IDEDGE(GCell Gcell1, GCell Gcell2)
 {
 	if(Gcell1.incX == Gcell2.decX)
@@ -518,6 +516,7 @@ private:
   ManhattanCost()  //Not Implemented
   {
   }
+  ManhattanCost(ManhattanCost const&);  //Not Implemented
   void operator=(ManhattanCost const&);  //Not Implemented
 };
 
