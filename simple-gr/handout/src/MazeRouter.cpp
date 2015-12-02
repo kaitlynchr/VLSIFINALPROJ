@@ -20,6 +20,7 @@ CostType SimpleGR::routeMaze(Net& net, bool allowOverflow, const Point &botleft,
   // find out the ID of the source and sink gcells
   const IdType srcGCellId = getGCellId(net.gCellOne);
   const IdType snkGCellId = getGCellId(net.gCellTwo);
+
   // insert the source gcell into the priority queue
   priorityQueue.setGCellCost(srcGCellId, 0., 0., NULLID);
 
@@ -27,14 +28,10 @@ CostType SimpleGR::routeMaze(Net& net, bool allowOverflow, const Point &botleft,
   // two gcells. This distance is used as the heuristic cost for A* search.
   ManhattanCost &lb = ManhattanCost::getFunc();
 GCell GCELL, snk=getGCell(snkGCellId);
-{
-//gcellArrsizeX
-//gcellArrsizeY
-//gcellArrsizenumlayers
   // A* search kernel
   // Loop until all "frontiers" in the priority queue are exhausted, or when
   // the sink gcell is found.
-  do{ 
+do{ 
     // YOUR A* search CODE GOES IN HERE
     //start off with the best GCELL to help decide where to go next
 	GCELL = getGCell(priorityQueue.getBestGCell()); 
@@ -149,3 +146,5 @@ IdType test, EDGEID;
 
   return finalCost;
 }}
+
+
