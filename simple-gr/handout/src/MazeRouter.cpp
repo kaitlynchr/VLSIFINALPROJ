@@ -47,7 +47,7 @@ GCell GCELL, snk=getGCell(snkGCellId);
 	int checkValues=0; 
 	IdType EDGEID=GCELL.incX, LOOP[6];
 	checkValues++; 
-	/*if(GCELL.x < gcellArrSzY-1){
+	if(GCELL.x < gcellArrSzY-1){
 	 LOOP[checkValues] = GCELL.incX;
 	checkValues++;}
 	if(GCELL.x > 0) 
@@ -58,7 +58,13 @@ GCell GCELL, snk=getGCell(snkGCellId);
 	checkValues++;}
 	if(GCELL.y > 0) 
 	{ LOOP[checkValues] = GCELL.decY;
-	checkValues++;} */ 
+	checkValues++;}  
+	if(GCELL.z < numLayers-1){
+	 LOOP[checkValues] = GCELL.incZ;
+	checkValues++;}
+	if(GCELL.y > 0) 
+	{ LOOP[checkValues] = GCELL.decZ;
+	checkValues++;} 
 	
 	//make sure it exisits
 	for(int i=0; i < checkValues; i++)
